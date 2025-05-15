@@ -31,10 +31,21 @@ env/
 *.sqlite
 *.db
 *.sql
+*.db-journal
+guidance.db
+
+# MySQL
+*.sql.gz
+*.dump
 
 # Logs and runtime data
 *.log
 logs/
+
+# Flask specific
+instance/
+.webassets-cache
+flask_session/
 
 # Large data files (CSV, Excel, etc.)
 *.csv
@@ -48,3 +59,12 @@ logs/
 
 # Windows
 Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Production deployment
+.dockerignore
+docker-compose.yml
