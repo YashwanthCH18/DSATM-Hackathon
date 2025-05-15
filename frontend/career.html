@@ -163,6 +163,18 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
     
+    .guidance-card {
+      background-color: var(--light-blue);
+      border-left: 5px solid var(--medium-blue);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .auth-section {
+      margin-bottom: 30px;
+    }
+    
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -179,6 +191,97 @@
             <div class="hero-overlay">
               <h1 class="hero-title">Career Guidance</h1>
               <p class="hero-subtitle">Discover your perfect career path</p>
+            </div>
+          </div>
+          
+          <!-- Auth Section -->
+          <div id="auth-section" class="p-4 auth-section">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-header">
+                    <h5 class="m-0"><i class="fas fa-sign-in-alt me-2"></i>Login</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="login-form">
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="login-username" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="login-password" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100" style="background-color: var(--medium-blue); border-color: var(--medium-blue);">Login</button>
+                    </form>
+                    <div class="alert alert-danger mt-3" id="login-error" style="display: none;"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-header">
+                    <h5 class="m-0"><i class="fas fa-user-plus me-2"></i>Register</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="register-form">
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="register-username" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="register-email" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="register-password" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="qualification" class="form-label">Qualification</label>
+                        <select class="form-select" id="register-qualification" required>
+                          <option value="" selected disabled>Select your qualification</option>
+                          <option value="10th">10th Standard</option>
+                          <option value="12th">12th Standard</option>
+                          <option value="Diploma">Diploma</option>
+                          <option value="Graduate">Graduate</option>
+                          <option value="Postgraduate">Postgraduate</option>
+                          <option value="PhD">PhD</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100" style="background-color: var(--medium-blue); border-color: var(--medium-blue);">Register</button>
+                    </form>
+                    <div class="alert alert-danger mt-3" id="register-error" style="display: none;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- User Profile & Qualification Section -->
+          <div id="user-section" class="p-4" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h4 class="mb-0"><i class="fas fa-user-circle me-2"></i>Welcome, <span id="user-name">User</span>!</h4>
+                <p class="text-muted mb-0">Qualification: <span id="user-qualification">12th</span></p>
+              </div>
+              <div>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-primary me-2">
+                  <i class="fas fa-home me-2"></i>Home
+                </a>
+                <button id="logout-btn" class="btn btn-outline-danger">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Custom Guidance Section -->
+          <div id="guidance-section" class="p-4" style="display: none;">
+            <h4 class="mb-4"><i class="fas fa-compass me-2"></i>Personal Guidance for You</h4>
+            <div id="guidance-content">
+              <!-- Guidance content will be loaded here dynamically -->
             </div>
           </div>
           
@@ -207,6 +310,22 @@
             
             <div class="selection-card">
               <form id="career-form">
+                <!-- Qualification Selection -->
+                <div class="mb-3" id="qualification-selector-container">
+                  <label for="qualification" class="form-label">
+                    <i class="fas fa-user-graduate section-icon"></i>
+                    Select Your Qualification
+                  </label>
+                  <select class="form-select" id="qualification" aria-label="Select your qualification">
+                    <option value="10th">10th Standard</option>
+                    <option value="12th" selected>12th Standard</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Postgraduate">Postgraduate</option>
+                    <option value="PhD">PhD</option>
+                  </select>
+                </div>
+                
                 <!-- Stream Selection -->
                 <div class="mb-3">
                   <label for="stream" class="form-label">
@@ -263,7 +382,7 @@
             
             <!-- Download Button - Always visible -->
             <div class="text-center mt-4">
-              <a href="https://drive.google.com/file/d/1234567890/view" target="_blank" class="btn btn-primary" style="background-color: var(--medium-blue); border-color: var(--medium-blue);">
+              <a href="https://drive.google.com/file/d/1t5rJrVR7tJ53PUOSCqJaXrCoqzayJGTY/view?usp=drive_link" target="_blank" class="btn btn-primary" style="background-color: var(--medium-blue); border-color: var(--medium-blue);">
                 <i class="fas fa-download me-2"></i>Download Career Guidance Chart
               </a>
               <p class="text-muted mt-2 small">Get a comprehensive career path chart to guide your decisions</p>
@@ -302,6 +421,20 @@
     const examSelect = document.getElementById('exam');
     const resultSummary = document.getElementById('result-summary');
     const resultContent = document.getElementById('result-content');
+    const qualificationSelect = document.getElementById('qualification');
+    
+    // Auth elements
+    const authSection = document.getElementById('auth-section');
+    const userSection = document.getElementById('user-section');
+    const guidanceSection = document.getElementById('guidance-section');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginError = document.getElementById('login-error');
+    const registerError = document.getElementById('register-error');
+    const userName = document.getElementById('user-name');
+    const userQualification = document.getElementById('user-qualification');
+    const qualificationSelectorContainer = document.getElementById('qualification-selector-container');
     
     // Loaders
     const streamLoader = document.getElementById('stream-loader');
@@ -312,13 +445,62 @@
     // Base API URL - can be changed as needed
     const API_BASE_URL = '/api';
     
+    // User state
+    let currentUser = null;
+    
     // Selected data store
     let selectedData = {
+      qualification: qualificationSelect.value,
       stream: { id: null, name: '' },
       course: { id: null, name: '' },
       career: { id: null, name: '' },
       exam: { id: null, name: '' }
     };
+    
+    // Check if user is logged in
+    function checkLoggedInStatus() {
+      const user = localStorage.getItem('user');
+      if (user) {
+        currentUser = JSON.parse(user);
+        showLoggedInUI(currentUser);
+      } else {
+        showLoginUI();
+      }
+    }
+    
+    // Show logged in UI
+    function showLoggedInUI(user) {
+      authSection.style.display = 'none';
+      userSection.style.display = 'block';
+      guidanceSection.style.display = 'block';
+      
+      userName.textContent = user.username;
+      userQualification.textContent = user.qualification;
+      
+      // Set the qualification selector to match the user's qualification
+      qualificationSelect.value = user.qualification;
+      qualificationSelectorContainer.style.display = 'none';
+      
+      // Load personalized guidance
+      loadGuidance(user.qualification);
+      
+      // Load streams based on qualification
+      loadStreams(user.qualification);
+    }
+    
+    // Show login UI
+    function showLoginUI() {
+      authSection.style.display = 'block';
+      userSection.style.display = 'none';
+      guidanceSection.style.display = 'none';
+      qualificationSelectorContainer.style.display = 'block';
+      
+      // Reset forms
+      loginForm.reset();
+      registerForm.reset();
+      loginError.style.display = 'none';
+      registerError.style.display = 'none';
+    }
 
     // Helper function to show/hide loaders
     const toggleLoader = (loader, show) => {
@@ -342,6 +524,7 @@
       
       let htmlContent = `
         <div class="mb-3">
+          <p><i class="fas fa-user-graduate text-primary me-2"></i><strong>Qualification:</strong> ${selectedData.qualification}</p>
           <p><i class="fas fa-graduation-cap text-primary me-2"></i><strong>Stream:</strong> ${selectedData.stream.name}</p>
       `;
       
@@ -363,14 +546,120 @@
       resultSummary.style.display = 'block';
     };
     
+    // Load personalized guidance
+    const loadGuidance = async (qualification) => {
+      try {
+        // Fetch guidance from API
+        const response = await axios.get(`${API_BASE_URL}/guidance?qualification=${qualification}`);
+        const guidanceData = response.data.data;
+        
+        // Clear existing guidance
+        const guidanceContent = document.getElementById('guidance-content');
+        guidanceContent.innerHTML = '';
+        
+        // Add guidance cards
+        guidanceData.options.forEach(option => {
+          const card = document.createElement('div');
+          card.className = 'guidance-card mb-3';
+          
+          let cardContent = `
+            <h5>${option.title}</h5>
+            <p>${option.description}</p>
+          `;
+          
+          if (option.type === 'stream') {
+            cardContent += `<div class="row">`;
+            option.options.forEach(stream => {
+              cardContent += `
+                <div class="col-md-4 mb-2">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>${stream.name}</h6>
+                      <p class="small text-muted">${stream.description}</p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            cardContent += `</div>`;
+          } else if (option.type === 'advanced_options') {
+            cardContent += `<h6 class="mt-3">Popular Streams:</h6><div class="row">`;
+            option.streams.forEach(stream => {
+              cardContent += `
+                <div class="col-md-4 mb-2">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>${stream.name}</h6>
+                      <p class="small text-muted">${stream.description}</p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            cardContent += `</div>`;
+            
+            cardContent += `<h6 class="mt-3">Popular Courses:</h6><div class="row">`;
+            option.popular_courses.forEach(course => {
+              cardContent += `
+                <div class="col-md-4 mb-2">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>${course.name}</h6>
+                      <p class="small text-muted">${course.description}</p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            cardContent += `</div>`;
+          } else if (option.type === 'exams') {
+            cardContent += `<div class="row">`;
+            option.exams.forEach(exam => {
+              cardContent += `
+                <div class="col-md-4 mb-2">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>${exam.name}</h6>
+                      <p class="small text-muted">${exam.description}</p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            cardContent += `</div>`;
+          } else if (option.type === 'career_options') {
+            cardContent += `<div class="row">`;
+            option.careers.forEach(career => {
+              cardContent += `
+                <div class="col-md-4 mb-2">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>${career.name}</h6>
+                      <p class="small text-muted">${career.description}</p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            cardContent += `</div>`;
+          }
+          
+          card.innerHTML = cardContent;
+          guidanceContent.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error loading guidance:', error);
+      }
+    };
+    
     // Load streams on page load
-    const loadStreams = async () => {
+    const loadStreams = async (qualification) => {
       try {
         toggleLoader(streamLoader, true);
         
-        // Fetch streams from API
-        const response = await axios.get(`${API_BASE_URL}/streams`);
-        const streams = response.data;
+        // Fetch streams from API with qualification filter
+        const response = await axios.get(`${API_BASE_URL}/streams?qualification=${qualification}`);
+        const streams = response.data.data;
         
         // Clear default option
         streamSelect.innerHTML = '<option value="" selected>Please select...</option>';
@@ -391,7 +680,7 @@
     };
     
     // Load courses based on selected stream
-    const loadCourses = async (streamId) => {
+    const loadCourses = async (streamId, qualification) => {
       try {
         resetDropdown(courseSelect, true);
         resetDropdown(careerSelect, true);
@@ -399,9 +688,9 @@
         
         toggleLoader(courseLoader, true);
         
-        // Fetch courses from API
-        const response = await axios.get(`${API_BASE_URL}/courses/${streamId}`);
-        const courses = response.data;
+        // Fetch courses from API with qualification filter
+        const response = await axios.get(`${API_BASE_URL}/courses/${streamId}?qualification=${qualification}`);
+        const courses = response.data.data;
         
         // Enable the course dropdown
         courseSelect.disabled = false;
@@ -422,16 +711,16 @@
     };
     
     // Load careers based on selected course
-    const loadCareers = async (courseId) => {
+    const loadCareers = async (courseId, qualification) => {
       try {
         resetDropdown(careerSelect, true);
         resetDropdown(examSelect, true);
         
         toggleLoader(careerLoader, true);
         
-        // Fetch careers from API
-        const response = await axios.get(`${API_BASE_URL}/careers/${courseId}`);
-        const careers = response.data;
+        // Fetch careers from API with qualification filter
+        const response = await axios.get(`${API_BASE_URL}/careers/${courseId}?qualification=${qualification}`);
+        const careers = response.data.data;
         
         // Enable the career dropdown
         careerSelect.disabled = false;
@@ -452,15 +741,15 @@
     };
     
     // Load exams based on selected career
-    const loadExams = async (careerId) => {
+    const loadExams = async (careerId, qualification) => {
       try {
         resetDropdown(examSelect, true);
         
         toggleLoader(examLoader, true);
         
-        // Fetch exams from API
-        const response = await axios.get(`${API_BASE_URL}/exams/${careerId}`);
-        const exams = response.data;
+        // Fetch exams from API with qualification filter
+        const response = await axios.get(`${API_BASE_URL}/exams/${careerId}?qualification=${qualification}`);
+        const exams = response.data.data;
         
         // Enable the exam dropdown
         examSelect.disabled = false;
@@ -480,7 +769,127 @@
       }
     };
     
+    // Handle login form submission
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      
+      try {
+        const response = await axios.post(`${API_BASE_URL}/login`, {
+          email: username,
+          password
+        });
+        
+        if (response.data.success) {
+          // Store user in localStorage
+          localStorage.setItem('user', JSON.stringify(response.data.data));
+          currentUser = response.data.data;
+          
+          // Show logged in UI
+          showLoggedInUI(currentUser);
+        } else {
+          loginError.textContent = response.data.message;
+          loginError.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        loginError.textContent = error.response?.data?.message || 'Login failed. Please try again.';
+        loginError.style.display = 'block';
+      }
+    });
+    
+    // Handle register form submission
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('register-username').value;
+      const email = document.getElementById('register-email').value;
+      const password = document.getElementById('register-password').value;
+      const qualification = document.getElementById('register-qualification').value;
+      
+      try {
+        const response = await axios.post(`${API_BASE_URL}/register`, {
+          name: username,
+          email,
+          password,
+          qualification
+        });
+        
+        if (response.data.success) {
+          // Store user in localStorage
+          localStorage.setItem('user', JSON.stringify(response.data.data));
+          currentUser = response.data.data;
+          
+          // Show logged in UI
+          showLoggedInUI(currentUser);
+        } else {
+          registerError.textContent = response.data.message;
+          registerError.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        registerError.textContent = error.response?.data?.message || 'Registration failed. Please try again.';
+        registerError.style.display = 'block';
+      }
+    });
+    
+    // Handle logout
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        // Call logout endpoint
+        await axios.post(`${API_BASE_URL}/logout`);
+      } catch (error) {
+        console.error('Logout error:', error);
+      } finally {
+        // Clear user from localStorage
+        localStorage.removeItem('user');
+        currentUser = null;
+        
+        // Show login UI
+        showLoginUI();
+        
+        // Reset dropdowns
+        resetDropdown(streamSelect, false);
+        resetDropdown(courseSelect, true);
+        resetDropdown(careerSelect, true);
+        resetDropdown(examSelect, true);
+        
+        // Hide result summary
+        resultSummary.style.display = 'none';
+        
+        // Load streams without qualification filter
+        loadStreams('10th');
+        
+        // Redirect to home page
+        window.location.href = "{{ url_for('index') }}";
+      }
+    });
+    
     // Event listeners for dropdown changes
+    qualificationSelect.addEventListener('change', async (e) => {
+      const qualification = e.target.value;
+      
+      // Reset all selections
+      selectedData.qualification = qualification;
+      selectedData.stream = { id: null, name: '' };
+      selectedData.course = { id: null, name: '' };
+      selectedData.career = { id: null, name: '' };
+      selectedData.exam = { id: null, name: '' };
+      
+      resetDropdown(streamSelect, false);
+      resetDropdown(courseSelect, true);
+      resetDropdown(careerSelect, true);
+      resetDropdown(examSelect, true);
+      
+      // Load streams based on new qualification
+      await loadStreams(qualification);
+      
+      // Hide result summary
+      resultSummary.style.display = 'none';
+    });
+    
     streamSelect.addEventListener('change', async (e) => {
       const streamId = e.target.value;
       
@@ -492,7 +901,7 @@
       selectedData.exam = { id: null, name: '' };
       
       if (streamId) {
-        await loadCourses(streamId);
+        await loadCourses(streamId, selectedData.qualification);
       } else {
         resetDropdown(courseSelect, true);
         resetDropdown(careerSelect, true);
@@ -512,7 +921,7 @@
       selectedData.exam = { id: null, name: '' };
       
       if (courseId) {
-        await loadCareers(courseId);
+        await loadCareers(courseId, selectedData.qualification);
       } else {
         resetDropdown(careerSelect, true);
         resetDropdown(examSelect, true);
@@ -530,7 +939,7 @@
       selectedData.exam = { id: null, name: '' };
       
       if (careerId) {
-        await loadExams(careerId);
+        await loadExams(careerId, selectedData.qualification);
       } else {
         resetDropdown(examSelect, true);
       }
@@ -547,8 +956,16 @@
       updateResultSummary();
     });
     
-    // Initialize the page - load streams
-    document.addEventListener('DOMContentLoaded', loadStreams);
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if user is logged in
+      checkLoggedInStatus();
+      
+      // Load streams without qualification filter if not logged in
+      if (!currentUser) {
+        loadStreams(qualificationSelect.value);
+      }
+    });
   </script>
 </body>
 </html> 
