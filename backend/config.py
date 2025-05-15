@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-# Load variables from .env file (which should be gitignored)
+# Load variables from the .env file
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
