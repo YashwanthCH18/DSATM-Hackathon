@@ -48,3 +48,16 @@ logs/
 
 # Windows
 Thumbs.db
+
+# API keys and secrets
+*.pem
+credentials.json
+config.local.py
+
+# Temporary files
+tmp/
+.tmp/
+*.bak
+
+# Jupyter Notebooks
+.ipynb_checkpoints

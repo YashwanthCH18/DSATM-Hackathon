@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learner</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/language_learner.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Polyglot Pal</a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="container content-container">
+            <div class="text-center mb-5">
+                <h1 style="color: #457B9D;">Talk & Learn English!</h1>
+                <p class="lead" style="color: #1D3557;">Speak in your native language, and let our AI teach you English.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center mb-4">
+                    <button id="speakButton" class="btn btn-custom-speak">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
+                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z"/>
+                            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                        Start Talking
+                    </button>
+                </div>
+            </div>
+
+            <div id="recordingIndicator" class="recording-indicator d-none">
+                <div class="recording-pulse"></div>
+                <span>Recording...</span>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div id="conversationContainer" class="conversation-container">
+                        <div class="welcome-message">
+                            <p>👋 Welcome to Polyglot Pal! Click the microphone button and speak in your native language.</p>
+                        </div>
+                        <!-- Conversation messages will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div id="statusDisplay" class="status-box">
+                        Click the button and start speaking...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-custom">
+        <p>&copy; 2024 Polyglot Pal. Empowering Your Language Journey.</p>
+    </footer>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/language_learner.js') }}" defer></script>
+</body>
+</html> 
