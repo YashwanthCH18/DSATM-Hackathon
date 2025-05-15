@@ -1,0 +1,259 @@
+/* Basic styling for body to apply background color */
+body {
+    background-color: #F1FAEE; /* Lightest color for page background */
+    color: #1D3557; /* A darker color for text for contrast, can be adjusted */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar-custom {
+    background-color: #457B9D !important; /* Primary accent for navbar */
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #F1FAEE !important;
+}
+
+.content-wrapper {
+    flex: 1;
+    padding-top: 20px; /* Add some padding at the top */
+    padding-bottom: 20px; /* Add some padding at the bottom */
+}
+
+.content-container {
+    background-color: #FFFFFF; /* White or a very light shade for content area */
+    padding: 30px;
+    margin-top: 20px; /* Reduced from 30px */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom-speak {
+    background-color: #457B9D; /* Primary accent */
+    border-color: #457B9D;
+    color: #F1FAEE;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px; /* Pill-shaped button */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-flex; /* For aligning icon and text */
+    align-items: center; /* For aligning icon and text */
+    justify-content: center; /* For aligning icon and text */
+}
+
+.btn-custom-speak:hover,
+.btn-custom-speak:focus {
+    background-color: #1D3557; /* Darker shade for hover/focus */
+    border-color: #1D3557;
+    color: #F1FAEE;
+    transform: translateY(-2px);
+}
+
+.btn-custom-speak svg {
+    margin-right: 8px;
+}
+
+.status-box {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #A8DADC; /* Secondary accent */
+    border-radius: 10px;
+    min-height: 80px;
+    color: #1D3557; /* Text color for status box */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-style: italic;
+}
+
+.footer-custom {
+    background-color: #457B9D;
+    color: #F1FAEE;
+    padding: 20px 0;
+    text-align: center;
+    /* margin-top: 40px; Removed to allow flex to push it down */
+}
+
+/* Ensure the main container in HTML takes up space for footer to be at bottom */
+.container.content-container {
+    margin-bottom: 20px; /* Add some space before the footer if content is short */
+}
+
+/* Conversation container styles */
+.conversation-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #F1FAEE;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.welcome-message {
+    text-align: center;
+    padding: 15px;
+    color: #457B9D;
+    font-weight: 500;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 80%;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.user-message {
+    background-color: #A8DADC;
+    color: #1D3557;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+}
+
+.ai-message {
+    background-color: #457B9D;
+    color: #F1FAEE;
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+}
+
+.message-content {
+    margin: 0;
+}
+
+.message-metadata {
+    font-size: 0.75rem;
+    text-align: right;
+    margin-top: 5px;
+    opacity: 0.7;
+}
+
+/* Audio container styling */
+.audio-container {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.audio-control {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.ai-message .audio-control {
+    color: #F1FAEE;
+    background-color: rgba(241, 250, 238, 0.2);
+}
+
+.ai-message .audio-control:hover {
+    background-color: rgba(241, 250, 238, 0.3);
+}
+
+.user-message .audio-control {
+    color: #1D3557;
+    background-color: rgba(29, 53, 87, 0.1);
+}
+
+.user-message .audio-control:hover {
+    background-color: rgba(29, 53, 87, 0.2);
+}
+
+/* TTS loading state */
+.tts-loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #F1FAEE;
+    animation: spin 1s ease-in-out infinite;
+    margin: 5px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Processing message styling */
+.message.processing .message-content {
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.message.processing {
+    position: relative;
+}
+
+.message.processing::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+@keyframes loading {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Recording indicator styling */
+.recording-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    color: #E63946;
+    font-weight: bold;
+}
+
+.recording-pulse {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #E63946;
+    margin-right: 8px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+    }
+    
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(230, 57, 70, 0);
+    }
+    
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+    }
+} 

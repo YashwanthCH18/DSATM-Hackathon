@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Guidance</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Custom styles -->
+  <style>
+    :root {
+      --light-blue: #A8DADC;
+      --medium-blue: #457B9D;
+      --off-white: #F1FAEE;
+      --dark-blue: #1D3557;
+      --accent: #E63946;
+    }
+    
+    body {
+      background-color: var(--off-white);
+      color: var(--dark-blue);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      border: none;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      background-color: var(--medium-blue);
+      color: white;
+      border-radius: 0 !important;
+      font-weight: 600;
+      padding: 1.2rem;
+      border-bottom: none;
+    }
+    
+    .form-select {
+      margin-bottom: 15px;
+      border: 2px solid var(--light-blue);
+      padding: 10px;
+    }
+    
+    .form-select:focus {
+      border-color: var(--medium-blue);
+      box-shadow: 0 0 0 0.25rem rgba(69, 123, 157, 0.25);
+    }
+    
+    .result-card {
+      display: none;
+      background-color: var(--light-blue);
+      border-left: 5px solid var(--medium-blue);
+    }
+    
+    .loader {
+      display: none;
+      border: 4px solid var(--light-blue);
+      border-top: 4px solid var(--medium-blue);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 400px;
+      background-image: url("https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1470&auto=format&fit=crop");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(29, 53, 87, 0.7), rgba(29, 53, 87, 0.4));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .hero-title {
+      color: white;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 0;
+    }
+    
+    .hero-subtitle {
+      color: var(--light-blue);
+      font-size: 1.2rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    
+    .section-icon {
+      font-size: 2rem;
+      color: var(--medium-blue);
+      margin-right: 10px;
+    }
+    
+    .icon-container {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    
+    .path-icon {
+      text-align: center;
+      padding: 15px;
+      border-radius: 50%;
+      background-color: var(--light-blue);
+      width: 80px;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .path-icon:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .path-icon i {
+      font-size: 2rem;
+      color: var(--medium-blue);
+    }
+    
+    .path-label {
+      font-size: 0.8rem;
+      margin-top: 5px;
+      color: var(--dark-blue);
+      font-weight: 600;
+    }
+    
+    .form-label {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--medium-blue);
+    }
+    
+    .selection-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card">
+          <!-- Hero Image Section -->
+          <div class="hero-image">
+            <div class="hero-overlay">
+              <h1 class="hero-title">Career Guidance</h1>
+              <p class="hero-subtitle">Discover your perfect career path</p>
+            </div>
+          </div>
+          
+          <!-- Icons Section -->
+          <div class="icon-container">
+            <div class="path-icon">
+              <i class="fas fa-graduation-cap"></i>
+              <div class="path-label">Stream</div>
+            </div>
+            <div class="path-icon">
+              <i class="fas fa-book"></i>
+              <div class="path-label">Course</div>
+            </div>
+            <div class="path-icon">
+              <i class="fas fa-briefcase"></i>
+              <div class="path-label">Career</div>
+            </div>
+            <div class="path-icon">
+              <i class="fas fa-file-alt"></i>
+              <div class="path-label">Exam</div>
+            </div>
+          </div>
+          
+          <div class="card-body p-4">
+            <p class="lead text-center mb-4">Select your preferences to explore career options and relevant exams</p>
+            
+            <div class="selection-card">
+              <form id="career-form">
+                <!-- Stream Selection -->
+                <div class="mb-3">
+                  <label for="stream" class="form-label">
+                    <i class="fas fa-graduation-cap section-icon"></i>
+                    Select Stream
+                  </label>
+                  <select class="form-select" id="stream" aria-label="Select your stream">
+                    <option value="" selected>Please select...</option>
+                    <!-- Options will be loaded here -->
+                  </select>
+                  <div class="loader" id="stream-loader"></div>
+                </div>
+                
+                <!-- Course Selection -->
+                <div class="mb-3">
+                  <label for="course" class="form-label">
+                    <i class="fas fa-book section-icon"></i>
+                    Select Course
+                  </label>
+                  <select class="form-select" id="course" aria-label="Select your course" disabled>
+                    <option value="" selected>Please select...</option>
+                    <!-- Options will be loaded here -->
+                  </select>
+                  <div class="loader" id="course-loader"></div>
+                </div>
+                
+                <!-- Career Selection -->
+                <div class="mb-3">
+                  <label for="career" class="form-label">
+                    <i class="fas fa-briefcase section-icon"></i>
+                    Select Career
+                  </label>
+                  <select class="form-select" id="career" aria-label="Select your career" disabled>
+                    <option value="" selected>Please select...</option>
+                    <!-- Options will be loaded here -->
+                  </select>
+                  <div class="loader" id="career-loader"></div>
+                </div>
+                
+                <!-- Exam Selection -->
+                <div class="mb-3">
+                  <label for="exam" class="form-label">
+                    <i class="fas fa-file-alt section-icon"></i>
+                    Select Exam
+                  </label>
+                  <select class="form-select" id="exam" aria-label="Select your exam" disabled>
+                    <option value="" selected>Please select...</option>
+                    <!-- Options will be loaded here -->
+                  </select>
+                  <div class="loader" id="exam-loader"></div>
+                </div>
+              </form>
+            </div>
+            
+            <!-- Download Button - Always visible -->
+            <div class="text-center mt-4">
+              <a href="https://drive.google.com/file/d/1234567890/view" target="_blank" class="btn btn-primary" style="background-color: var(--medium-blue); border-color: var(--medium-blue);">
+                <i class="fas fa-download me-2"></i>Download Career Guidance Chart
+              </a>
+              <p class="text-muted mt-2 small">Get a comprehensive career path chart to guide your decisions</p>
+            </div>
+            
+            <!-- Results Summary -->
+            <div class="card result-card mt-4" id="result-summary">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <i class="fas fa-road me-2"></i>
+                  Your Career Path
+                </h4>
+                <div id="result-content"></div>
+                <div class="text-center mt-3">
+                  <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1470&auto=format&fit=crop" 
+                       alt="Rural students studying" class="img-fluid rounded" style="max-height: 400px;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Axios for API calls -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+  <script>
+    // DOM elements
+    const streamSelect = document.getElementById('stream');
+    const courseSelect = document.getElementById('course');
+    const careerSelect = document.getElementById('career');
+    const examSelect = document.getElementById('exam');
+    const resultSummary = document.getElementById('result-summary');
+    const resultContent = document.getElementById('result-content');
+    
+    // Loaders
+    const streamLoader = document.getElementById('stream-loader');
+    const courseLoader = document.getElementById('course-loader');
+    const careerLoader = document.getElementById('career-loader');
+    const examLoader = document.getElementById('exam-loader');
+    
+    // Base API URL - can be changed as needed
+    const API_BASE_URL = '/api';
+    
+    // Selected data store
+    let selectedData = {
+      stream: { id: null, name: '' },
+      course: { id: null, name: '' },
+      career: { id: null, name: '' },
+      exam: { id: null, name: '' }
+    };
+
+    // Helper function to show/hide loaders
+    const toggleLoader = (loader, show) => {
+      loader.style.display = show ? 'block' : 'none';
+    };
+    
+    // Helper function to reset dropdowns
+    const resetDropdown = (dropdown, disable = true) => {
+      dropdown.innerHTML = '<option value="" selected>Please select...</option>';
+      dropdown.disabled = disable;
+    };
+    
+    // Helper function to update the results summary
+    const updateResultSummary = () => {
+      const hasExam = selectedData.exam.id !== null;
+      
+      if (!selectedData.stream.id) {
+        resultSummary.style.display = 'none';
+        return;
+      }
+      
+      let htmlContent = `
+        <div class="mb-3">
+          <p><i class="fas fa-graduation-cap text-primary me-2"></i><strong>Stream:</strong> ${selectedData.stream.name}</p>
+      `;
+      
+      if (selectedData.course.id) {
+        htmlContent += `<p><i class="fas fa-book text-primary me-2"></i><strong>Course:</strong> ${selectedData.course.name}</p>`;
+      }
+      
+      if (selectedData.career.id) {
+        htmlContent += `<p><i class="fas fa-briefcase text-primary me-2"></i><strong>Career:</strong> ${selectedData.career.name}</p>`;
+      }
+      
+      if (hasExam) {
+        htmlContent += `<p><i class="fas fa-file-alt text-primary me-2"></i><strong>Exam:</strong> ${selectedData.exam.name}</p>`;
+      }
+      
+      htmlContent += '</div>';
+      
+      resultContent.innerHTML = htmlContent;
+      resultSummary.style.display = 'block';
+    };
+    
+    // Load streams on page load
+    const loadStreams = async () => {
+      try {
+        toggleLoader(streamLoader, true);
+        
+        // Fetch streams from API
+        const response = await axios.get(`${API_BASE_URL}/streams`);
+        const streams = response.data;
+        
+        // Clear default option
+        streamSelect.innerHTML = '<option value="" selected>Please select...</option>';
+        
+        // Add stream options
+        streams.forEach(stream => {
+          const option = document.createElement('option');
+          option.value = stream.id;
+          option.textContent = stream.name;
+          streamSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading streams:', error);
+        alert('Failed to load streams. Please try refreshing the page.');
+      } finally {
+        toggleLoader(streamLoader, false);
+      }
+    };
+    
+    // Load courses based on selected stream
+    const loadCourses = async (streamId) => {
+      try {
+        resetDropdown(courseSelect, true);
+        resetDropdown(careerSelect, true);
+        resetDropdown(examSelect, true);
+        
+        toggleLoader(courseLoader, true);
+        
+        // Fetch courses from API
+        const response = await axios.get(`${API_BASE_URL}/courses/${streamId}`);
+        const courses = response.data;
+        
+        // Enable the course dropdown
+        courseSelect.disabled = false;
+        
+        // Add course options
+        courses.forEach(course => {
+          const option = document.createElement('option');
+          option.value = course.id;
+          option.textContent = course.name;
+          courseSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading courses:', error);
+        alert('Failed to load courses for the selected stream.');
+      } finally {
+        toggleLoader(courseLoader, false);
+      }
+    };
+    
+    // Load careers based on selected course
+    const loadCareers = async (courseId) => {
+      try {
+        resetDropdown(careerSelect, true);
+        resetDropdown(examSelect, true);
+        
+        toggleLoader(careerLoader, true);
+        
+        // Fetch careers from API
+        const response = await axios.get(`${API_BASE_URL}/careers/${courseId}`);
+        const careers = response.data;
+        
+        // Enable the career dropdown
+        careerSelect.disabled = false;
+        
+        // Add career options
+        careers.forEach(career => {
+          const option = document.createElement('option');
+          option.value = career.id;
+          option.textContent = career.name;
+          careerSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading careers:', error);
+        alert('Failed to load careers for the selected course.');
+      } finally {
+        toggleLoader(careerLoader, false);
+      }
+    };
+    
+    // Load exams based on selected career
+    const loadExams = async (careerId) => {
+      try {
+        resetDropdown(examSelect, true);
+        
+        toggleLoader(examLoader, true);
+        
+        // Fetch exams from API
+        const response = await axios.get(`${API_BASE_URL}/exams/${careerId}`);
+        const exams = response.data;
+        
+        // Enable the exam dropdown
+        examSelect.disabled = false;
+        
+        // Add exam options
+        exams.forEach(exam => {
+          const option = document.createElement('option');
+          option.value = exam.id;
+          option.textContent = exam.name;
+          examSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading exams:', error);
+        alert('Failed to load exams for the selected career.');
+      } finally {
+        toggleLoader(examLoader, false);
+      }
+    };
+    
+    // Event listeners for dropdown changes
+    streamSelect.addEventListener('change', async (e) => {
+      const streamId = e.target.value;
+      
+      // Reset all selections below this level
+      selectedData.stream.id = streamId || null;
+      selectedData.stream.name = streamId ? e.target.options[e.target.selectedIndex].text : '';
+      selectedData.course = { id: null, name: '' };
+      selectedData.career = { id: null, name: '' };
+      selectedData.exam = { id: null, name: '' };
+      
+      if (streamId) {
+        await loadCourses(streamId);
+      } else {
+        resetDropdown(courseSelect, true);
+        resetDropdown(careerSelect, true);
+        resetDropdown(examSelect, true);
+      }
+      
+      updateResultSummary();
+    });
+    
+    courseSelect.addEventListener('change', async (e) => {
+      const courseId = e.target.value;
+      
+      // Reset all selections below this level
+      selectedData.course.id = courseId || null;
+      selectedData.course.name = courseId ? e.target.options[e.target.selectedIndex].text : '';
+      selectedData.career = { id: null, name: '' };
+      selectedData.exam = { id: null, name: '' };
+      
+      if (courseId) {
+        await loadCareers(courseId);
+      } else {
+        resetDropdown(careerSelect, true);
+        resetDropdown(examSelect, true);
+      }
+      
+      updateResultSummary();
+    });
+    
+    careerSelect.addEventListener('change', async (e) => {
+      const careerId = e.target.value;
+      
+      // Reset all selections below this level
+      selectedData.career.id = careerId || null;
+      selectedData.career.name = careerId ? e.target.options[e.target.selectedIndex].text : '';
+      selectedData.exam = { id: null, name: '' };
+      
+      if (careerId) {
+        await loadExams(careerId);
+      } else {
+        resetDropdown(examSelect, true);
+      }
+      
+      updateResultSummary();
+    });
+    
+    examSelect.addEventListener('change', (e) => {
+      const examId = e.target.value;
+      
+      selectedData.exam.id = examId || null;
+      selectedData.exam.name = examId ? e.target.options[e.target.selectedIndex].text : '';
+      
+      updateResultSummary();
+    });
+    
+    // Initialize the page - load streams
+    document.addEventListener('DOMContentLoaded', loadStreams);
+  </script>
+</body>
+</html> 
