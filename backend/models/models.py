@@ -21,9 +21,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'mobile': self.mobile,
-            'address': self.address,
-            'qualification': self.qualification,
+            'mobile': self.mobile if hasattr(self, 'mobile') else None,
+            'address': self.address if hasattr(self, 'address') else None,
+            'qualification': self.qualification if hasattr(self, 'qualification') else None,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
 

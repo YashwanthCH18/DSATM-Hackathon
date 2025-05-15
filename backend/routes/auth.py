@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, session, redirect, url_for
+from flask import Blueprint, jsonify, request, session, redirect, url_for, render_template, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.models import db, User
@@ -225,29 +225,57 @@ def register():
         'data': new_user.to_dict()
     }), 201
 
+@auth_bp.route('/login', methods=['GET'])
+def login_page():
+    """Render the login page"""
+    # If already logged in, redirect to home
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    # Get the next parameter (where to redirect after login)
+    next_url = request.args.get('next', '')
+    
+    # Redirect to the signup page with login form active
+    return redirect(url_for('signup', _anchor='login', next=next_url))
+
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """Log in a user"""
     data = request.json
+    current_app.logger.info(f"Login attempt data: {data}")
+
+    if not data:
+        current_app.logger.warning("No JSON data received for login")
+        return jsonify({'success': False, 'message': 'No login data provided'}), 400
+
+    email = data.get('email')
+    password = data.get('password')
+
+    if not email:
+        current_app.logger.warning("Missing email in login data")
+        return jsonify({'success': False, 'message': 'Email is required'}), 400
+
+    if not password:
+        current_app.logger.warning("Missing password in login data")
+        return jsonify({'success': False, 'message': 'Password is required'}), 400
+
+    current_app.logger.info(f"Attempting login with email: {email}")
     
-    if not data or not 'email' in data or not 'password' in data:
-        return jsonify({
-            'success': False,
-            'message': 'Missing email or password'
-        }), 400
-    
-    # Find user by email
-    user = User.query.filter_by(email=data['email']).first()
-    
-    # Check if user exists and password matches
-    if not user or not check_password_hash(user.password, data['password']):
-        return jsonify({
-            'success': False,
-            'message': 'Invalid email or password'
-        }), 401
-    
-    # Log the user in
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        current_app.logger.warning(f"No user found with email: {email}. Attempting lookup by username as fallback.")
+        user = User.query.filter_by(username=email).first() # Fallback to check if email was entered as username
+        if not user:
+            current_app.logger.warning(f"User not found by email or username: {email}")
+            return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+
+    if not check_password_hash(user.password, password):
+        current_app.logger.warning(f"Password mismatch for user: {email}")
+        return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+
     login_user(user)
+    current_app.logger.info(f"User {user.username} (ID: {user.id}) logged in successfully")
     
     return jsonify({
         'success': True,
