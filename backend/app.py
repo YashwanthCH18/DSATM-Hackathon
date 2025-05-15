@@ -75,10 +75,11 @@ def process_speech():
         return jsonify({"error": "No selected file"}), 400
 
     if file:
-        sarvam_api_key = current_app.config.get('SARVAM_API_KEY')
+        # Get API key from request header instead of app config
+        sarvam_api_key = request.headers.get('X-API-Key')
         if not sarvam_api_key:
-            current_app.logger.error("Sarvam API key not configured.")
-            return jsonify({"error": "Server configuration error"}), 500
+            current_app.logger.error("Sarvam API key not provided in request header")
+            return jsonify({"error": "API key not provided"}), 401
 
         headers = {
             "api-subscription-key": sarvam_api_key,
@@ -109,18 +110,45 @@ def process_speech():
 
 @app.route('/text_to_speech', methods=['POST'])
 def text_to_speech():
-    # Placeholder for Sarvam AI Text-to-Speech API
-    # User needs to provide documentation for this API
-    current_app.logger.info("Received request for /text_to_speech (placeholder)")
-    data = request.get_json()
-    current_app.logger.info(f"TTS Request data: {data}")
+    try:
+        # Get API key from request header
+        api_key = request.headers.get('X-API-Key')
+        if not api_key:
+            return jsonify({'error': 'API key is missing'}), 401
+        
+        # Get request data
+        data = request.get_json()
+        if not data or 'text' not in data:
+            return jsonify({'error': 'Text is required'}), 400
+        
+        # Prepare request for Sarvam.ai TTS API
+        sarvam_url = 'https://api.sarvam.ai/text-to-speech'
+        headers = {
+            'api-subscription-key': api_key,
+            'Content-Type': 'application/json'
+        }
+        
+        # Add default parameters if not provided
+        if 'target_language_code' not in data:
+            data['target_language_code'] = 'en-US'  # Default to English
+        
+        # Optional parameters
+        params = ['speaker', 'pace', 'pitch', 'loudness', 'speech_sample_rate', 'enable_preprocessing', 'model']
+        for param in params:
+            if param not in data and param in request.json:
+                data[param] = request.json[param]
+        
+        # Send request to Sarvam API
+        response = requests.post(sarvam_url, headers=headers, json=data)
+        
+        if response.status_code == 200:
+            # Return the base64 audio data
+            return response.json(), 200
+        else:
+            return jsonify({'error': 'Text-to-speech API error', 'details': response.text}), response.status_code
     
-    # Mock response - replace with actual API call when docs are available
-    mock_audio_data = "UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAAABkYXRhAAAAAA==" # Short silent WAV
-    return jsonify({
-        "audios": [mock_audio_data],
-        "message": "TTS processing is currently a placeholder."
-    }), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     with app.app_context():

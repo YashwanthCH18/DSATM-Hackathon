@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let mediaRecorder = null;
     let audioChunks = [];
     let isPlaying = false;
+    // Add API key for Sarvam.ai
+    const API_KEY = 'sk_1j4etflr_iIlrTHqNrPb5DsnWYr94ah45';
 
     speakButton.addEventListener('click', async () => {
         if (!isRecording) {
@@ -106,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await axios.post('/process_speech', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'X-API-Key': API_KEY
                 }
             });
             
@@ -175,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await axios.post('/text_to_speech', ttsData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
                 }
             });
             
