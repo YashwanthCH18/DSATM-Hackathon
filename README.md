@@ -57,7 +57,7 @@ The application follows a modular architecture with several key components:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/DSATM-Hackathon.git
+git clone https://github.com/YashwanthCH18/DSATM-Hackathon.git
 cd DSATM-Hackathon
 ```
 
