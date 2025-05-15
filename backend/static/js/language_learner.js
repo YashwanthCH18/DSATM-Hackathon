@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let mediaRecorder = null;
     let audioChunks = [];
     const API_KEY = 'sk_1j4etflr_iIlrTHqNrPb5DsnWYr94ah45';
+    let isPlaying = false;
     
     speakButton.addEventListener('click', async () => {
         if (!isRecording) {
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function processAudioWithAPI(audioBlob) {
         try {
             // Add user's recording to conversation as a placeholder
-            addMessageToConversation("Processing your speech...", 'user', true);
+            const messageId = addMessageToConversation("Processing your speech...", 'user', true);
             
             // Create form data for the API call
             const formData = new FormData();
@@ -127,7 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const aiResponse = generateAIResponse(transcript, detectedLanguage);
                 
                 // Add AI response to conversation
-                addMessageToConversation(aiResponse.responseText, 'ai');
+                const messageId = addMessageToConversation(aiResponse.responseText, 'ai', false, true);
+                
+                // Convert AI response to speech
+                await convertTextToSpeech(aiResponse.responseText, 'en-US', messageId);
                 
                 // Update status display
                 updateStatusWithLanguageInfo(aiResponse);
@@ -149,6 +153,171 @@ document.addEventListener('DOMContentLoaded', () => {
             addMessageToConversation(mockTranscript, 'user');
             const mockResponse = generateAIResponse(mockTranscript, "en-US");
             addMessageToConversation(mockResponse.responseText, 'ai');
+        }
+    }
+
+    async function convertTextToSpeech(text, languageCode, messageId) {
+        try {
+            // Show loading indicator on the message
+            const messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                messageElement.classList.add('tts-loading');
+            }
+            
+            // Prepare the data for TTS API
+            const ttsData = {
+                text: text,
+                target_language_code: languageCode,
+                speaker: 'Arjun', // A male voice
+                pace: 1.0,        // Normal pace
+                model: 'bulbul:v1' // The model to use
+            };
+            
+            // Call the TTS API
+            const response = await axios.post('/text_to_speech', ttsData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                }
+            });
+            
+            // Check if we have audio data
+            if (response.data && response.data.audios && response.data.audios.length > 0) {
+                const base64Audio = response.data.audios[0];
+                
+                // Create an audio element and play the speech
+                const audioSrc = `data:audio/wav;base64,${base64Audio}`;
+                
+                // If the message has an existing audio element, update it
+                let audioElement = messageElement ? messageElement.querySelector('audio') : null;
+                
+                if (!audioElement) {
+                    // Create new audio element
+                    audioElement = document.createElement('audio');
+                    audioElement.controls = false;
+                    
+                    // Add it to the message container
+                    if (messageElement) {
+                        // Create an audio control button
+                        const audioButton = document.createElement('button');
+                        audioButton.className = 'audio-control';
+                        audioButton.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
+                                <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
+                                <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 4.596l.706.704z"/>
+                                <path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
+                            </svg>
+                        `;
+                        
+                        // Toggle audio on button click
+                        audioButton.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            if (isPlaying && audioElement.playing) {
+                                audioElement.pause();
+                                isPlaying = false;
+                                audioButton.innerHTML = `
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
+                                        <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
+                                        <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 4.596l.706.704z"/>
+                                        <path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
+                                    </svg>
+                                `;
+                            } else {
+                                // Stop all currently playing audio
+                                document.querySelectorAll('audio').forEach(audio => {
+                                    if (audio !== audioElement) {
+                                        audio.pause();
+                                        audio.currentTime = 0;
+                                    }
+                                });
+                                
+                                // Reset all audio buttons
+                                document.querySelectorAll('.audio-control').forEach(btn => {
+                                    btn.innerHTML = `
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
+                                            <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
+                                            <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 4.596l.706.704z"/>
+                                            <path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
+                                        </svg>
+                                    `;
+                                });
+                                
+                                // Play this audio
+                                audioElement.play();
+                                isPlaying = true;
+                                audioButton.innerHTML = `
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pause-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5z"/>
+                                    </svg>
+                                `;
+                            }
+                        });
+                        
+                        // Add the button and audio element to the message
+                        const audioContainer = document.createElement('div');
+                        audioContainer.className = 'audio-container';
+                        audioContainer.appendChild(audioButton);
+                        audioContainer.appendChild(audioElement);
+                        messageElement.appendChild(audioContainer);
+                    }
+                }
+                
+                // Update audio source
+                audioElement.src = audioSrc;
+                
+                // Add event listeners to track playing state
+                audioElement.addEventListener('ended', () => {
+                    isPlaying = false;
+                    // Reset the audio button icon
+                    if (messageElement) {
+                        const audioButton = messageElement.querySelector('.audio-control');
+                        if (audioButton) {
+                            audioButton.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
+                                    <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
+                                    <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 4.596l.706.704z"/>
+                                    <path d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
+                                </svg>
+                            `;
+                        }
+                    }
+                });
+                
+                // Auto-play the audio
+                try {
+                    await audioElement.play();
+                    isPlaying = true;
+                    
+                    if (messageElement) {
+                        const audioButton = messageElement.querySelector('.audio-control');
+                        if (audioButton) {
+                            audioButton.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pause-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5z"/>
+                                </svg>
+                            `;
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Auto-play failed. User interaction needed to play audio.', err);
+                }
+            }
+            
+            // Remove loading state
+            if (messageElement) {
+                messageElement.classList.remove('tts-loading');
+            }
+            
+        } catch (error) {
+            console.error("Error converting text to speech:", error);
+            
+            // Remove loading state
+            const messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                messageElement.classList.remove('tts-loading');
+            }
         }
     }
 
@@ -239,11 +408,18 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    function addMessageToConversation(text, sender, isProcessing = false) {
+    function addMessageToConversation(text, sender, isProcessing = false, withTts = false) {
+        const messageId = 'msg-' + Date.now();
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
+        messageDiv.id = messageId;
+        
         if (isProcessing) {
             messageDiv.classList.add('processing');
+        }
+        
+        if (withTts) {
+            messageDiv.classList.add('tts-loading');
         }
         
         const now = new Date();
@@ -258,5 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Scroll to the latest message
         conversationContainer.scrollTop = conversationContainer.scrollHeight;
+        
+        return messageId;
     }
 }); 
