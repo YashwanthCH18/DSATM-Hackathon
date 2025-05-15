@@ -151,9 +151,40 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('studentName')) {
         loadSavedProfile();
     }
+    
+    // Add event listeners to all "Learn More" buttons in scheme cards
+    setupLearnMoreButtons();
 });
 
 // Helper Functions
+
+// Function to set up "Learn More" buttons for all scheme cards
+function setupLearnMoreButtons() {
+    // Get all scheme cards
+    const schemeCards = document.querySelectorAll('.scheme-card, .state-scheme-card .card');
+    
+    // Add click event listener to each "Learn More" button
+    schemeCards.forEach(card => {
+        const learnMoreBtn = card.querySelector('.btn-primary');
+        if (learnMoreBtn) {
+            learnMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const schemeName = card.querySelector('.card-title').textContent;
+                openSchemeSearch(schemeName);
+            });
+        }
+    });
+}
+
+// Function to open Google search for scheme
+function openSchemeSearch(schemeName) {
+    // Create a Google search URL with the scheme name
+    const searchQuery = encodeURIComponent(schemeName + " government scheme");
+    const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
+    
+    // Open the search URL in a new tab
+    window.open(searchUrl, '_blank');
+}
 
 // Function to display bootstrap alerts
 function showAlert(type, message) {
@@ -251,6 +282,9 @@ function filterSchemesByState(selectedState) {
         // Example of how you would fetch schemes from an API:
         // fetchStateSchemes(selectedState);
     }
+    
+    // Set up Learn More buttons for newly displayed cards
+    setupLearnMoreButtons();
 }
 
 // Helper function to get full state name from state code

@@ -90,7 +90,7 @@
 
         <!-- Government Schemes Section -->
         <section id="govt-schemes" class="container my-5">
-            <h2 class="text-center mb-4" data-i18n="govt-schemes">Government Educational Schemes</h2>
+            <h2 class="text-center mb-4" id="govtSchemesTitle" data-i18n="govt-schemes">Government Educational Schemes</h2>
             
             <!-- State Selector -->
             <div class="row mb-4">
@@ -162,7 +162,7 @@
             
             <!-- State Government Schemes -->
             <div class="state-schemes">
-                <h3 class="mb-3" data-i18n="state-schemes">State Government Schemes</h3>
+                <h3 class="mb-3" id="stateSchemeTitle" data-i18n="state-schemes">State Government Schemes</h3>
                 <div class="row g-4" id="stateSchemesContainer">
                     <!-- State scheme cards will be populated here via JavaScript based on selection -->
                     <div class="col-md-4 state-scheme-card" data-state="karnataka">
@@ -197,84 +197,90 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Educational Scheme Photos Section -->
-        <section id="scheme-photos" class="container my-5">
-            <h2 class="text-center mb-4" data-i18n="scheme-photos">Rural Educational Scheme Photos</h2>
-            <div class="row">
-                <div class="col-12">
-                    <div class="photo-gallery">
-                        <!-- Photo gallery carousel -->
-                        <div id="photoGalleryCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    
+                    <div class="col-md-4 state-scheme-card" data-state="kerala">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Vidyakiranam Project</h5>
+                                <p class="card-text">Kerala's initiative to provide digital devices to students from disadvantaged backgrounds for online education.</p>
+                                <p class="card-text"><small class="text-muted">2023-2024</small></p>
+                                <a href="#" class="btn btn-primary" data-i18n="learn-more">Learn More</a>
                             </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=600&q=80" class="d-block w-100" alt="Midday Meal Scheme">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Midday Meal Scheme</h5>
-                                        <p>Providing nutritious meals to millions of children in government schools across rural India.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://images.unsplash.com/photo-1610500796385-3ffc1ae2fccb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=600&q=80" class="d-block w-100" alt="Digital Classroom">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Digital Classroom Initiative</h5>
-                                        <p>Bringing technology-enabled learning to rural schools through smart classrooms.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=600&q=80" class="d-block w-100" alt="Girl Child Education">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Beti Bachao, Beti Padhao</h5>
-                                        <p>Promoting education for the girl child in rural areas to improve gender equality.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69799?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=600&q=80" class="d-block w-100" alt="Mobile Science Lab">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Mobile Science Laboratory</h5>
-                                        <p>Bringing hands-on science education to remote rural schools without laboratory facilities.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Educational Scheme Gallery Section -->
+        <section id="scheme-gallery" class="container my-5">
+            <h2 class="text-center mb-4" data-i18n="scheme-photos">Rural Educational Scheme Photos</h2>
             
-            <!-- Thumbnail gallery below carousel -->
-            <div class="row mt-4 g-2 scheme-thumbnails">
-                <div class="col-md-3">
-                    <img src="https://images.unsplash.com/photo-1592564630984-7410f94db184?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=200&q=80" class="img-thumbnail" alt="School Uniform Distribution">
-                    <p class="text-center mt-1">Free School Uniform Distribution</p>
+            <!-- Gallery Layout -->
+            <div class="row g-4 scheme-gallery">
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="Midday Meal Scheme">
+                        <div class="gallery-caption">
+                            <h5>Midday Meal Scheme</h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=200&q=80" class="img-thumbnail" alt="Education Scholarship Distribution">
-                    <p class="text-center mt-1">Scholarship Award Ceremony</p>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1610500796385-3ffc1ae2fccb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="Digital Classroom">
+                        <div class="gallery-caption">
+                            <h5>Digital Classroom Initiative</h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=200&q=80" class="img-thumbnail" alt="Computer Education in Rural Schools">
-                    <p class="text-center mt-1">Digital Literacy Program</p>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="Girl Child Education">
+                        <div class="gallery-caption">
+                            <h5>Beti Bachao, Beti Padhao</h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <img src="https://images.unsplash.com/photo-1477239439998-839196943351?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=200&q=80" class="img-thumbnail" alt="School Transportation Scheme">
-                    <p class="text-center mt-1">Rural School Transport Service</p>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69799?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="Mobile Science Lab">
+                        <div class="gallery-caption">
+                            <h5>Mobile Science Laboratory</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1592564630984-7410f94db184?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="School Uniform Distribution">
+                        <div class="gallery-caption">
+                            <h5>School Uniform Distribution</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="Education Scholarship Distribution">
+                        <div class="gallery-caption">
+                            <h5>Scholarship Distribution</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="Computer Education in Rural Schools">
+                        <div class="gallery-caption">
+                            <h5>Digital Literacy Program</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1477239439998-839196943351?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" class="img-fluid" alt="School Transportation Scheme">
+                        <div class="gallery-caption">
+                            <h5>Rural School Transport</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -283,19 +289,19 @@
     <!-- Bottom Navbar -->
     <nav class="navbar fixed-bottom bottom-navbar">
         <div class="container-fluid justify-content-around">
-            <a href="#" class="navbar-tool" data-bs-toggle="modal" data-bs-target="#careerModal">
+            <a href="career-guidance.html" class="navbar-tool">
                 <i class="fas fa-briefcase"></i>
                 <span data-i18n="career">Career Guidance</span>
             </a>
-            <a href="#" class="navbar-tool" data-bs-toggle="modal" data-bs-target="#aiBotModal">
+            <a href="ai-bot.html" class="navbar-tool">
                 <i class="fas fa-robot"></i>
                 <span data-i18n="ai-bot">AI Bot</span>
             </a>
-            <a href="#" class="navbar-tool" data-bs-toggle="modal" data-bs-target="#eLearnModal">
+            <a href="e-learn.html" class="navbar-tool">
                 <i class="fas fa-graduation-cap"></i>
                 <span data-i18n="e-learn">E-Learn</span>
             </a>
-            <a href="#" class="navbar-tool" data-bs-toggle="modal" data-bs-target="#voiceModal">
+            <a href="voice-converter.html" class="navbar-tool">
                 <i class="fas fa-microphone"></i>
                 <span data-i18n="voice">Voice Converter</span>
             </a>
@@ -364,151 +370,6 @@
                     <div class="mt-3">
                         <p class="mb-0" data-i18n="helpline">Need help? Call our helpline:</p>
                         <p class="fw-bold">+91 8000 800 800</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Career Guidance Modal -->
-    <div class="modal fade" id="careerModal" tabindex="-1" aria-labelledby="careerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="careerModalLabel" data-i18n="career-guidance">Career Guidance</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p data-i18n="career-intro">Discover career paths suitable for rural students based on your interests and qualifications.</p>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" data-i18n="agriculture-careers">Agriculture & Allied Fields</h5>
-                            </div>
-                            <p class="mb-1" data-i18n="agriculture-careers-desc">Explore careers in modern farming, dairy, food processing, and agri-business.</p>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" data-i18n="rural-development">Rural Development</h5>
-                            </div>
-                            <p class="mb-1" data-i18n="rural-development-desc">Opportunities in NGOs, government schemes, and social enterprises.</p>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1" data-i18n="technical-vocational">Technical & Vocational</h5>
-                            </div>
-                            <p class="mb-1" data-i18n="technical-vocational-desc">Skill-based careers in mechanics, electronics, construction, and healthcare.</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- AI Bot Modal -->
-    <div class="modal fade" id="aiBotModal" tabindex="-1" aria-labelledby="aiBotModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="aiBotModalLabel" data-i18n="ai-assistant">AI Learning Assistant</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="chat-container" id="chatContainer">
-                        <div class="chat-message bot">
-                            <div class="message-content" data-i18n="ai-welcome">Hi! I'm your AI learning assistant. How can I help you today?</div>
-                        </div>
-                    </div>
-                    <form id="chatForm" class="mt-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="userMessage" placeholder="Ask me anything..." data-i18n-placeholder="ask-anything">
-                            <button class="btn btn-primary" type="submit" data-i18n="send">Send</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- E-Learn Modal -->
-    <div class="modal fade" id="eLearnModal" tabindex="-1" aria-labelledby="eLearnModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eLearnModalLabel" data-i18n="e-learning">E-Learning Platform</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title" data-i18n="video-lessons">Video Lessons</h5>
-                                    <p class="card-text" data-i18n="video-lessons-desc">Access educational videos that work even with low bandwidth.</p>
-                                    <a href="#" class="btn btn-sm btn-primary" data-i18n="access">Access Videos</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title" data-i18n="offline-content">Offline Content</h5>
-                                    <p class="card-text" data-i18n="offline-content-desc">Download lessons to access when you're offline.</p>
-                                    <a href="#" class="btn btn-sm btn-primary" data-i18n="download">Download Content</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title" data-i18n="interactive-quizzes">Interactive Quizzes</h5>
-                                    <p class="card-text" data-i18n="interactive-quizzes-desc">Test your knowledge with our simple quizzes.</p>
-                                    <a href="#" class="btn btn-sm btn-primary" data-i18n="take-quiz">Take a Quiz</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title" data-i18n="study-materials">Study Materials</h5>
-                                    <p class="card-text" data-i18n="study-materials-desc">Access textbooks and reference materials.</p>
-                                    <a href="#" class="btn btn-sm btn-primary" data-i18n="browse">Browse Materials</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Voice Converter Modal -->
-    <div class="modal fade" id="voiceModal" tabindex="-1" aria-labelledby="voiceModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="voiceModalLabel" data-i18n="voice-converter">Voice Converter</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p data-i18n="voice-desc">Convert text to speech or speech to text to help with learning.</p>
-                    <div class="mb-3">
-                        <label for="textToSpeech" class="form-label" data-i18n="text-to-speech">Text to Speech</label>
-                        <textarea class="form-control mb-2" id="textToSpeech" rows="3" placeholder="Enter text to convert to speech" data-i18n-placeholder="enter-text"></textarea>
-                        <button class="btn btn-primary" id="speakBtn" data-i18n="speak">Speak</button>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" data-i18n="speech-to-text">Speech to Text</label>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" id="startRecordingBtn" data-i18n="start-recording">Start Recording</button>
-                            <button class="btn btn-danger" id="stopRecordingBtn" disabled data-i18n="stop-recording">Stop Recording</button>
-                        </div>
-                        <div class="mt-2">
-                            <p class="mb-1" data-i18n="transcription">Transcription:</p>
-                            <div class="form-control" id="transcriptionResult" style="min-height: 100px"></div>
-                        </div>
                     </div>
                 </div>
             </div>
