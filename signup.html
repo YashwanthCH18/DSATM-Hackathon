@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --light-blue: #A8DADC;
+            --blue: #457B9D;
+            --off-white: #F1FAEE;
+        }
+        
+        body {
+            background-color: var(--off-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--blue);
+        }
+        
+        .navbar-brand {
+            color: var(--off-white);
+            font-weight: bold;
+        }
+        
+        .hero-section {
+            background: var(--blue);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .form-container h2 {
+            color: var(--blue);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-label {
+            color: var(--blue);
+            font-weight: 600;
+        }
+        
+        .form-control:focus {
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 0.25rem rgba(168, 218, 220, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: var(--blue);
+            border-color: var(--blue);
+            font-weight: 600;
+            padding: 10px 25px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #3a6a8a;
+            border-color: #3a6a8a;
+            transform: translateY(-2px);
+        }
+        
+        .rural-img {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rural-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .toggle-form {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .toggle-form a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: var(--light-blue);
+            color: var(--blue);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .rural-img {
+                margin-bottom: 1.5rem;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Rural Student Career Guidance</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="career.html">Career Path</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="signup.html">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="hero-section">
+    <div class="container">
+        <h1>Join Our Community</h1>
+        <p class="lead">Access personalized career guidance and resources for rural students</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-container" id="signup-form">
+                <h2><i class="fas fa-user-plus me-2"></i>Sign Up</h2>
+                <form id="studentSignupForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                        <div class="error-message" id="name-error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email ID</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile" class="form-label">Mobile Number</label>
+                        <input type="tel" class="form-control" id="mobile" required>
+                        <div class="error-message" id="mobile-error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                        <div class="error-message" id="password-error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="qualification" class="form-label">Qualification</label>
+                        <select class="form-select" id="qualification" required>
+                            <option value="" selected disabled>Select your qualification</option>
+                            <option value="class1">Class 1</option>
+                            <option value="class2">Class 2</option>
+                            <option value="class3">Class 3</option>
+                            <option value="class4">Class 4</option>
+                            <option value="class5">Class 5</option>
+                            <option value="class6">Class 6</option>
+                            <option value="class7">Class 7</option>
+                            <option value="class8">Class 8</option>
+                            <option value="class9">Class 9</option>
+                            <option value="10th">10th Standard</option>
+                            <option value="12th">12th Standard</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="undergraduate">Undergraduate</option>
+                            <option value="postgraduate">Postgraduate</option>
+                        </select>
+                        <div class="error-message" id="qualification-error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control" id="address" rows="3" required></textarea>
+                        <div class="error-message" id="address-error"></div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Submit
+                        </button>
+                    </div>
+                </form>
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle me-2"></i>Registration successful! Please check your email for further instructions.
+                </div>
+                <div class="toggle-form">
+                    <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+                </div>
+            </div>
+            
+            <div class="form-container" id="login-form" style="display: none;">
+                <h2><i class="fas fa-sign-in-alt me-2"></i>Login</h2>
+                <form id="studentLoginForm">
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">Email ID</label>
+                        <input type="email" class="form-control" id="login-email" required>
+                        <div class="error-message" id="login-email-error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="login-password" required>
+                        <div class="error-message" id="login-password-error"></div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-unlock-alt me-2"></i>Login
+                        </button>
+                    </div>
+                </form>
+                <div class="toggle-form">
+                    <p>Don't have an account? <a href="#" id="show-signup">Sign up here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle between signup and login forms
+        const signupForm = document.getElementById('signup-form');
+        const loginForm = document.getElementById('login-form');
+        const showLoginLink = document.getElementById('show-login');
+        const showSignupLink = document.getElementById('show-signup');
+        
+        showLoginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+        
+        showSignupLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        });
+
+        // Form validation functions
+        function validateName(name) {
+            return name.trim().length >= 3;
+        }
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email.trim());
+        }
+        
+        function validateMobile(mobile) {
+            const re = /^[0-9]{10}$/;
+            return re.test(mobile.trim());
+        }
+        
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+        
+        function validateQualification(qualification) {
+            return qualification !== "";
+        }
+        
+        function validateAddress(address) {
+            return address.trim().length >= 10;
+        }
+
+        // Handle signup form submission
+        const studentSignupForm = document.getElementById('studentSignupForm');
+        studentSignupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+            const password = document.getElementById('password').value;
+            const qualification = document.getElementById('qualification').value;
+            const address = document.getElementById('address').value;
+            
+            // Validate form data
+            let isValid = true;
+            
+            if (!validateName(name)) {
+                document.getElementById('name-error').textContent = 'Name must be at least 3 characters';
+                isValid = false;
+            }
+            
+            if (!validateEmail(email)) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+            
+            if (!validateMobile(mobile)) {
+                document.getElementById('mobile-error').textContent = 'Mobile number must be 10 digits';
+                isValid = false;
+            }
+            
+            if (!validatePassword(password)) {
+                document.getElementById('password-error').textContent = 'Password must be at least 8 characters';
+                isValid = false;
+            }
+            
+            if (!validateQualification(qualification)) {
+                document.getElementById('qualification-error').textContent = 'Please select your qualification';
+                isValid = false;
+            }
+            
+            if (!validateAddress(address)) {
+                document.getElementById('address-error').textContent = 'Address must be at least 10 characters';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                try {
+                    // Prepare data for the backend
+                    const formData = {
+                        name,
+                        email,
+                        mobile,
+                        password,
+                        qualification,
+                        address
+                    };
+                    
+                    // Show loading state
+                    const submitButton = studentSignupForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.innerHTML;
+                    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
+                    submitButton.disabled = true;
+                    
+                    // Send data to the backend using Axios
+                    // Replace the URL with your actual backend endpoint
+                    const response = await axios.post('/api/register', formData);
+                    
+                    // Show success message
+                    document.getElementById('success-message').style.display = 'block';
+                    studentSignupForm.reset();
+                    
+                    // Scroll to success message
+                    document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Reset button state
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                    
+                    console.log('Registration successful:', response.data);
+                } catch (error) {
+                    // Handle errors
+                    console.error('Registration failed:', error);
+                    
+                    // Reset button state
+                    const submitButton = studentSignupForm.querySelector('button[type="submit"]');
+                    submitButton.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Submit';
+                    submitButton.disabled = false;
+                    
+                    // Show error message
+                    alert('Registration failed. Please try again later.');
+                }
+            }
+        });
+
+        // Handle login form submission
+        const studentLoginForm = document.getElementById('studentLoginForm');
+        studentLoginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            
+            // Get form data
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Validate form data
+            let isValid = true;
+            
+            if (!validateEmail(email)) {
+                document.getElementById('login-email-error').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+            
+            if (!validatePassword(password)) {
+                document.getElementById('login-password-error').textContent = 'Password must be at least 8 characters';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                try {
+                    // Prepare data for the backend
+                    const loginData = {
+                        email,
+                        password
+                    };
+                    
+                    // Show loading state
+                    const submitButton = studentLoginForm.querySelector('button[type="submit"]');
+                    const originalButtonText = submitButton.innerHTML;
+                    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
+                    submitButton.disabled = true;
+                    
+                    // Send data to the backend using Axios
+                    // Replace the URL with your actual backend endpoint
+                    const response = await axios.post('/api/login', loginData);
+                    
+                    // Reset button state
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                    
+                    console.log('Login successful:', response.data);
+                    
+                    // Redirect to dashboard or home page
+                    // window.location.href = 'index.html';
+                    alert('Login successful! Redirecting to dashboard...');
+                } catch (error) {
+                    // Handle errors
+                    console.error('Login failed:', error);
+                    
+                    // Reset button state
+                    const submitButton = studentLoginForm.querySelector('button[type="submit"]');
+                    submitButton.innerHTML = '<i class="fas fa-unlock-alt me-2"></i>Login';
+                    submitButton.disabled = false;
+                    
+                    // Show error message
+                    alert('Login failed. Please check your credentials and try again.');
+                }
+            }
+        });
+    });
+</script>s
+
+</body>
+</html> 
