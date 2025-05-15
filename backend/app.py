@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify, current_app
+from flask import Flask, render_template, redirect, url_for, request, jsonify, current_app, send_from_directory
 from flask_cors import CORS
 from flask_login import LoginManager, login_required, current_user
 from config import Config
@@ -39,6 +39,13 @@ from routes.auth import auth_bp  # Contains OTP email verification routes
 # Register blueprints
 app.register_blueprint(guidance_bp)
 app.register_blueprint(auth_bp)
+
+# Route to serve projectPhoto files
+@app.route('/DSATM-Hackathon/projectPhoto/<path:filename>')
+def serve_project_photo(filename):
+    # Get the absolute path to the projectPhoto directory
+    project_photo_dir = os.path.abspath(os.path.join(app.root_path, '..', 'projectPhoto'))
+    return send_from_directory(project_photo_dir, filename)
 
 # Serve the frontend
 @app.route('/')
