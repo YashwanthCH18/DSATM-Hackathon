@@ -1,5 +1,14 @@
+// Authentication state management
+let isAuthenticated = false;
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if user is authenticated
+    checkAuthStatus();
+    
+    // Add authentication check to bottom navbar links
+    setupAuthProtectedFeatures();
+    
     // Profile form submission
     const profileForm = document.getElementById('profileForm');
     if (profileForm) {
@@ -131,18 +140,24 @@ document.addEventListener('DOMContentLoaded', function() {
         filterSchemesByState('all');
     }
     
-    // Load profile data from localStorage if available (for demo)
+    // Modified Profile data loading
     const loadSavedProfile = () => {
-        const savedProfile = localStorage.getItem('studentProfile');
-        if (savedProfile) {
-            try {
-                const profileData = JSON.parse(savedProfile);
-                document.getElementById('studentName').value = profileData.name || '';
-                document.getElementById('studentMobile').value = profileData.mobile || '';
-                document.getElementById('studentEmail').value = profileData.email || '';
-                document.getElementById('studentQualification').value = profileData.qualification || '';
-            } catch (error) {
-                console.error('Error loading saved profile:', error);
+        if (isAuthenticated) {
+            // Fetch from API when authenticated
+            fetchProfileFromAPI();
+        } else {
+            // Use localStorage as fallback for demo
+            const savedProfile = localStorage.getItem('studentProfile');
+            if (savedProfile) {
+                try {
+                    const profileData = JSON.parse(savedProfile);
+                    document.getElementById('studentName').value = profileData.name || '';
+                    document.getElementById('studentMobile').value = profileData.mobile || '';
+                    document.getElementById('studentEmail').value = profileData.email || '';
+                    document.getElementById('studentQualification').value = profileData.qualification || '';
+                } catch (error) {
+                    console.error('Error loading saved profile:', error);
+                }
             }
         }
     };
@@ -197,14 +212,25 @@ function showAlert(type, message) {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
     
-    // Insert alert at the top of the body
-    document.body.insertBefore(alertDiv, document.body.firstChild);
+    // Insert alert into mainAlertContainer instead of body
+    const alertContainer = document.getElementById('mainAlertContainer');
+    if (alertContainer) {
+        alertContainer.appendChild(alertDiv);
+    } else {
+        // Fallback to body if container not found
+        document.body.insertBefore(alertDiv, document.body.firstChild);
+    }
     
     // Auto-dismiss after 3 seconds
     setTimeout(() => {
         const bsAlert = new bootstrap.Alert(alertDiv);
         bsAlert.close();
     }, 3000);
+}
+
+// Function to show feature alerts
+function showFeatureAlert(featureName) {
+    showAlert('info', `The ${featureName} feature is coming soon!`);
 }
 
 // Function to add message to chat
@@ -327,6 +353,96 @@ async function fetchStateSchemes(stateCode) {
         console.error('Error fetching state schemes:', error);
         showAlert('danger', 'Failed to fetch schemes for the selected state.');
     }
+}
+
+// Authentication functions
+function checkAuthStatus() {
+    // For demo purposes, check if auth token exists
+    const token = localStorage.getItem('auth_token');
+    isAuthenticated = !!token;
+    
+    // Update UI based on auth status
+    updateUIForAuthStatus();
+}
+
+function updateUIForAuthStatus() {
+    // Update login button
+    const loginButton = document.getElementById('loginButton');
+    if (loginButton) {
+        if (isAuthenticated) {
+            loginButton.textContent = 'Logout';
+            loginButton.href = '#';
+            loginButton.onclick = function(e) {
+                e.preventDefault();
+                logout();
+            };
+        } else {
+            loginButton.textContent = 'Login';
+            loginButton.href = 'login.html';
+            loginButton.onclick = null;
+        }
+    }
+}
+
+function logout() {
+    // Clear auth token
+    localStorage.removeItem('auth_token');
+    isAuthenticated = false;
+    
+    // Update UI
+    updateUIForAuthStatus();
+    showAlert('success', 'You have been logged out successfully.');
+}
+
+function fetchProfileFromAPI() {
+    // Simulating API call to fetch profile data
+    simulateApiCall({ action: 'fetch_profile' })
+        .then(response => {
+            // In a real app, this would be the response from your API
+            const profileData = {
+                name: 'John Doe',
+                mobile: '9876543210',
+                email: 'john.doe@example.com',
+                qualification: 'graduate'
+            };
+            
+            // Update form fields
+            document.getElementById('studentName').value = profileData.name || '';
+            document.getElementById('studentMobile').value = profileData.mobile || '';
+            document.getElementById('studentEmail').value = profileData.email || '';
+            document.getElementById('studentQualification').value = profileData.qualification || '';
+        })
+        .catch(error => {
+            console.error('Error fetching profile:', error);
+            showAlert('danger', 'Failed to fetch your profile data.');
+        });
+}
+
+function setupAuthProtectedFeatures() {
+    // Get protected bottom navbar links
+    const protectedLinks = document.querySelectorAll('.navbar-tool');
+    
+    // Add click event handler to check auth before proceeding
+    protectedLinks.forEach(link => {
+        // Store the original href
+        const originalHref = link.getAttribute('href');
+        
+        // Check if it's a protected feature (not already using onclick)
+        if ((originalHref === 'career-guidance.html' || 
+            originalHref === 'ai-bot.html' || 
+            originalHref === 'voice-converter.html') && 
+            !link.hasAttribute('onclick')) {
+            
+            // Override the click behavior
+            link.addEventListener('click', function(e) {
+                if (!isAuthenticated) {
+                    e.preventDefault();
+                    showAlert('warning', 'Please sign in to access this feature.');
+                }
+                // If authenticated, default link behavior works
+            });
+        }
+    });
 }
 
 // Simulate API call (for demo purposes)

@@ -29,6 +29,20 @@ body {
     font-size: 1.5rem;
 }
 
+/* Signup button styling */
+.nav-link.btn.btn-outline-primary {
+    color: var(--light-color) !important;
+    border-color: var(--light-color);
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.nav-link.btn.btn-outline-primary:hover {
+    background-color: var(--light-color);
+    color: var(--primary-color) !important;
+}
+
 .dropdown-menu {
     background-color: var(--accent-color);
 }

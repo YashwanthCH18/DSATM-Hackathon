@@ -41,6 +41,9 @@
                             <li><a class="dropdown-item" href="#" onclick="changeLanguage('te')">తెలుగు (Telugu)</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-primary ms-2 px-3" href="login.html" data-i18n="signup">Signup</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -48,6 +51,11 @@
 
     <!-- Main Content -->
     <main>
+        <!-- Alert container for main page alerts -->
+        <div class="container mt-3">
+            <div id="mainAlertContainer"></div>
+        </div>
+
         <!-- Hero Carousel -->
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -297,7 +305,7 @@
                 <i class="fas fa-robot"></i>
                 <span data-i18n="ai-bot">AI Bot</span>
             </a>
-            <a href="e-learn.html" class="navbar-tool">
+            <a href="e-learn.html" class="navbar-tool" onclick="showFeatureAlert('E-Learning platform'); return false;">
                 <i class="fas fa-graduation-cap"></i>
                 <span data-i18n="e-learn">E-Learn</span>
             </a>
