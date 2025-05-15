@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rural Education Platform</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Rural Education Hub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/career">Career Guidance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#feedbackModal">Feedback</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('hi')">हिंदी (Hindi)</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('kn')">ಕನ್ನಡ (Kannada)</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('te')">తెలుగు (Telugu)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" id="login-signup-item">
+                        <a class="nav-link btn btn-outline-primary ms-2 px-3" href="/signup" data-i18n="signup">Sign up / Login</a>
+                    </li>
+                    <li class="nav-item" id="logout-item" style="display: none;">
+                        <a class="nav-link btn btn-outline-danger ms-2 px-3" href="#" id="logout-btn">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Alert container for main page alerts -->
+        <div class="container mt-3">
+            <div id="mainAlertContainer"></div>
+        </div>
+
+        <!-- Hero Carousel -->
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=500&q=80" class="d-block w-100" alt="Rural Education">
+                    <div class="carousel-caption">
+                        <h2 class="slide-title">Education for All</h2>
+                        <p class="slide-text">Breaking barriers to bring quality education to every rural student</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=500&q=80" class="d-block w-100" alt="Rural Students">
+                    <div class="carousel-caption">
+                        <h2 class="slide-title">Empowering Rural Futures</h2>
+                        <p class="slide-text">Building tomorrow's leaders through accessible education</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1583604898860-306cd52731d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1536&h=500&q=80" class="d-block w-100" alt="Technology in Education">
+                    <div class="carousel-caption">
+                        <h2 class="slide-title">Learn Without Limits</h2>
+                        <p class="slide-text">Technology bridging the gap between urban and rural education</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Career Guidance Promo Section -->
+        <section class="container my-5">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Career Guidance for Rural Students</h2>
+                    <p class="lead">Find the perfect educational and career path based on your qualifications and interests.</p>
+                    <p>Our platform offers personalized guidance for students at all levels:</p>
+                    <ul>
+                        <li>10th Standard students exploring future streams</li>
+                        <li>12th Standard students choosing higher education options</li>
+                        <li>Graduates looking for career opportunities</li>
+                    </ul>
+                    <a href="/career" class="btn btn-primary mt-3">
+                        <i class="fas fa-compass me-2"></i>Explore Career Paths
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="img-fluid rounded shadow" alt="Career Guidance">
+                </div>
+            </div>
+        </section>
+
+        <!-- Government Schemes Section -->
+        <section id="govt-schemes" class="container my-5">
+            <h2 class="text-center mb-4" id="govtSchemesTitle" data-i18n="govt-schemes">Government Educational Schemes</h2>
+            
+            <!-- State Selector -->
+            <div class="row mb-4">
+                <div class="col-md-6 mx-auto">
+                    <div class="input-group">
+                        <label class="input-group-text" for="stateSelector" data-i18n="select-state">Select State</label>
+                        <select class="form-select" id="stateSelector">
+                            <option value="all" selected data-i18n="all-india">All India (Central Schemes)</option>
+                            <option value="andhra-pradesh">Andhra Pradesh</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="tamil-nadu">Tamil Nadu</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="uttar-pradesh">Uttar Pradesh</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="west-bengal">West Bengal</option>
+                            <option value="assam">Assam</option>
+                            <option value="orissa">Orissa</option>
+                            <option value="madhya-pradesh">Madhya Pradesh</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="haryana">Haryana</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Central Government Schemes -->
+            <div class="central-schemes mb-4">
+                <h3 class="mb-3" data-i18n="central-schemes">Central Government Schemes</h3>
+                <div class="row g-4" id="centralSchemesContainer">
+                    <!-- Scheme cards will be populated here via JavaScript -->
+                    <div class="col-md-4">
+                        <div class="card h-100 scheme-card" data-scheme-type="central">
+                            <div class="card-body">
+                                <h5 class="card-title">Samagra Shiksha Abhiyan</h5>
+                                <p class="card-text">An integrated scheme for school education extending from pre-school to class 12, with the broader goal of improving school effectiveness.</p>
+                                <p class="card-text"><small class="text-muted">2023-2024</small></p>
+                                <a href="#" class="btn btn-primary" data-i18n="learn-more">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100 scheme-card" data-scheme-type="central">
+                            <div class="card-body">
+                                <h5 class="card-title">PM SHRI Schools</h5>
+                                <p class="card-text">Pradhan Mantri Schools for Rising India (PM SHRI) aims to develop more than 14,500 schools across India as model schools.</p>
+                                <p class="card-text"><small class="text-muted">2023-2024</small></p>
+                                <a href="#" class="btn btn-primary" data-i18n="learn-more">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100 scheme-card" data-scheme-type="central">
+                            <div class="card-body">
+                                <h5 class="card-title">DIKSHA Portal</h5>
+                                <p class="card-text">Digital Infrastructure for Knowledge Sharing - A national platform for school education available for all states and central boards of education.</p>
+                                <p class="card-text"><small class="text-muted">2023-2024</small></p>
+                                <a href="#" class="btn btn-primary" data-i18n="learn-more">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="bg-dark text-light py-4 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Rural Education Hub</h5>
+                        <p>Empowering rural students with quality education, resources, and guidance.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="/" class="text-light">Home</a></li>
+                            <li><a href="/career" class="text-light">Career Guidance</a></li>
+                            <li><a href="/signup" class="text-light">Sign Up</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contact Us</h5>
+                        <address>
+                            <i class="fas fa-map-marker-alt me-2"></i>123 Education Street<br>
+                            Rural District, State 560001<br>
+                            <i class="fas fa-phone me-2"></i>+91 1234567890<br>
+                            <i class="fas fa-envelope me-2"></i>contact@ruraleducationhub.org
+                        </address>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <p class="mb-0">&copy; 2023 Rural Education Hub. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Axios for API calls -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/languageConverter.js"></script>
+    
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Check authentication status
+                const response = await axios.get('/api/check-auth');
+                
+                if (response.data.authenticated) {
+                    // User is logged in, show logout button and hide login/signup
+                    document.getElementById('login-signup-item').style.display = 'none';
+                    document.getElementById('logout-item').style.display = 'block';
+                    
+                    // Add event listener for logout
+                    document.getElementById('logout-btn').addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        
+                        try {
+                            await axios.post('/api/logout');
+                            // Clear localStorage
+                            localStorage.removeItem('user');
+                            // Reload page
+                            window.location.href = '/';
+                        } catch (error) {
+                            console.error('Logout failed:', error);
+                        }
+                    });
+                } else {
+                    // User is not logged in, show login/signup button
+                    document.getElementById('login-signup-item').style.display = 'block';
+                    document.getElementById('logout-item').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+            }
+        });
+    </script>
+</body>
+</html> 
