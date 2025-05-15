@@ -233,11 +233,6 @@ For production deployment:
 5. Configure error logging and monitoring
 6. Use environment variables for sensitive information
 
-## Contributors
-
-- [Contributor 1](https://github.com/contributor1)
-- [Contributor 2](https://github.com/contributor2)
-- [Contributor 3](https://github.com/contributor3)
 
 ## License
 
