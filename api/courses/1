@@ -1,0 +1,17 @@
+[
+  {
+    "id": "101",
+    "name": "B.Tech",
+    "streamId": "1"
+  },
+  {
+    "id": "102",
+    "name": "B.Sc Physics",
+    "streamId": "1"
+  },
+  {
+    "id": "103",
+    "name": "B.Sc Computer Science",
+    "streamId": "1"
+  }
+] 

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "10001",
+    "name": "JEE",
+    "careerId": "1001",
+    "description": "Joint Entrance Examination for engineering colleges"
+  },
+  {
+    "id": "10002",
+    "name": "CET",
+    "careerId": "1001",
+    "description": "Common Entrance Test for state engineering colleges"
+  },
+  {
+    "id": "10003",
+    "name": "GATE",
+    "careerId": "1001",
+    "description": "Graduate Aptitude Test in Engineering for higher studies"
+  }
+] 
