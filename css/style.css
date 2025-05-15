@@ -1,0 +1,291 @@
+/* Color Variables */
+:root {
+    --light-color: #F1FAEE;
+    --accent-color: #A8DADC;
+    --primary-color: #457B9D;
+    --dark-color: #1D3557;
+    --danger-color: #E63946;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    padding-bottom: 70px; /* Space for the bottom navbar */
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--light-color) !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.dropdown-menu {
+    background-color: var(--accent-color);
+}
+
+.dropdown-item {
+    color: var(--dark-color);
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+/* Carousel Styling */
+.carousel-item img {
+    object-fit: cover;
+    height: 400px;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.slide-title {
+    font-weight: bold;
+    color: var(--light-color);
+}
+
+.slide-text {
+    color: var(--accent-color);
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+}
+
+/* Government Schemes Section Styling */
+#stateSelector {
+    border: 2px solid var(--accent-color);
+    color: var(--dark-color);
+}
+
+.scheme-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.state-scheme-card {
+    display: none; /* Hide by default, will be shown based on selection */
+}
+
+.central-schemes h3,
+.state-schemes h3 {
+    color: var(--dark-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.scheme-thumbnails img {
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.scheme-thumbnails img:hover {
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+}
+
+.scheme-thumbnails p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+/* Photo Gallery Styling */
+#photoGalleryCarousel .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+#photoGalleryCarousel .carousel-caption {
+    background-color: rgba(29, 53, 87, 0.7); /* Dark color with opacity */
+    border-radius: 10px;
+    padding: 15px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+#photoGalleryCarousel .carousel-caption h5 {
+    font-weight: bold;
+    color: var(--light-color);
+    margin-bottom: 5px;
+}
+
+#photoGalleryCarousel .carousel-caption p {
+    color: var(--accent-color);
+    margin-bottom: 0;
+}
+
+/* Bottom Navbar */
+.bottom-navbar {
+    background-color: var(--accent-color);
+    padding: 10px 0;
+}
+
+.navbar-tool {
+    color: var(--primary-color);
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.navbar-tool i {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.navbar-tool:hover {
+    color: var(--dark-color);
+}
+
+/* Modal Styling */
+.modal-content {
+    border-radius: 10px;
+    background-color: var(--light-color);
+}
+
+.modal-header {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.btn-close {
+    filter: brightness(0) invert(1);
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(69, 123, 157, 0.25);
+}
+
+/* Chat Container in AI Bot */
+.chat-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.chat-message.bot {
+    background-color: var(--accent-color);
+    margin-right: 20%;
+}
+
+.chat-message.user {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    margin-left: 20%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 250px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-tool {
+        font-size: 0.7rem;
+    }
+    
+    .navbar-tool i {
+        font-size: 1.2rem;
+    }
+    
+    #photoGalleryCarousel .carousel-item img {
+        height: 300px;
+    }
+    
+    .scheme-thumbnails img {
+        height: 120px;
+    }
+    
+    #photoGalleryCarousel .carousel-caption {
+        padding: 10px;
+    }
+    
+    .carousel-caption {
+        padding: 10px;
+    }
+}
+
+/* Accessibility */
+.btn, .nav-link, a {
+    transition: all 0.2s ease;
+}
+
+*:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+} 
